@@ -21,6 +21,17 @@ You can either open this up in an IDE and change the parameters by hand, or the 
 
 Both of these images were from the same generation run, converted from the native PGM format the program uses internally. PGM has the best quality, but is not widely supported. BMP is the next best, but it is a lossless format, and is not compressed. PNG is the most widely supported, and is compressed, but it is a lossy format. The GIF was created with ffmpeg using PNG sequences, so the quality will only be as good as the PNGs.
 
+Unless otherwise specified, the default behavior for edges is to wrap around, this will allow for noise to be tiled, and for gifs to be seamless.
+
+![Worley Noise Edge Wrapped PNG](worleyWrap.png)  
+*Worley Noise Edge Wrapped PNG*
+
+![Worley Noise Edge Wrapped GIF](output.gif)  
+*Worley Noise Edge Wrapped GIF*
+
+![Worley Noise Edge Wrapped Big GIF](wrap3dbig.gif)  
+*Worley Noise Edge Wrapped Big GIF*
+
 ## Disclaimer
 
 Like mentioned previously, this implementation is very rudimentary, and is not optimized in any manner. It is meant to be a simple example of how to generate Worley noise. I mainly created this project because I needed a Worley noise generator for a school project, and wanted to get a good foundation first before I attempt to add mutli-threading and other optimizations.
