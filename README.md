@@ -26,11 +26,8 @@ Unless otherwise specified, the default behavior for edges is to wrap around, th
 ![Worley Noise Edge Wrapped PNG](worleyWrap.png)  
 *Worley Noise Edge Wrapped PNG*
 
-![Worley Noise Edge Wrapped GIF](output.gif)  
-*Worley Noise Edge Wrapped GIF*
-
 ![Worley Noise Edge Wrapped Big GIF](wrap3dbig.gif)  
-*Worley Noise Edge Wrapped Big GIF*
+*Worley Noise Edge Wrapped GIF*
 
 ## Disclaimer
 
