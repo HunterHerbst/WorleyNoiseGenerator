@@ -21,6 +21,7 @@ public class Worley3D {
             this.points[i][1] = (int) (Math.random() * height);
             this.points[i][2] = (int) (Math.random() * depth);
         }
+        this.generate();
     }
 
     private static float distance(int x1, int y1, int z1, int x2, int y2, int z2) {

@@ -18,6 +18,7 @@ public class Worley {
             this.points[i][0] = (int) (Math.random() * width);
             this.points[i][1] = (int) (Math.random() * height);
         }
+        this.generate();
     }
 
     // create new worley from just data set
