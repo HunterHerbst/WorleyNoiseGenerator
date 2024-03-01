@@ -13,10 +13,10 @@ You can either open this up in an IDE and change the parameters by hand, or the 
 
 250^2 pixels of Worley noise, with 25 cells, and a distance metric of Euclidean:
 
-![Worley Noise 250 squared pixels png](worley.png)
+![Worley Noise 250 squared pixels png](worley.png)  
 *Worley Noise PNG*
 
-![Worley Noise 250 squared pixels bitmap](worley.bmp)
+![Worley Noise 250 squared pixels bitmap](worley.bmp)  
 *Worley Noise BMP*
 
 Both of these images were from the same generation run, converted from the native PGM format the program uses internally. PGM has the best quality, but is not widely supported. BMP is the next best, but it is a lossless format, and is not compressed. PNG is the most widely supported, and is compressed, but it is a lossy format. The GIF was created with ffmpeg using PNG sequences, so the quality will only be as good as the PNGs.
