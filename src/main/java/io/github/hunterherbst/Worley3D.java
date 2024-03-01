@@ -9,7 +9,7 @@ public class Worley3D {
     private int numPoints;
     private int[][] points;
 
-    public Worley3D(int width, int height, int depth, int numPoints) {
+    public Worley3D(int width, int height, int depth, int numPoints, boolean wrap) {
         this.width = width;
         this.height = height;
         this.depth = depth;
@@ -21,11 +21,35 @@ public class Worley3D {
             this.points[i][1] = (int) (Math.random() * height);
             this.points[i][2] = (int) (Math.random() * depth);
         }
-        this.generate();
+
+        if(wrap)
+            this.generateWithWrapping();
+        else
+            this.generate();
+    }
+
+    public Worley3D(int width, int height, int depth, int numPoints) {
+        this(width, height, depth, numPoints, true);
     }
 
     private static float distance(int x1, int y1, int z1, int x2, int y2, int z2) {
         return (float) Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1) + (z2 - z1) * (z2 - z1));
+    }
+
+    private static float distanceWrapped(int x1, int y1, int z1, int x2, int y2, int z2, int width, int height, int depth) {
+        int dx = Math.abs(x2 - x1);
+        int dy = Math.abs(y2 - y1);
+        int dz = Math.abs(z2 - z1);
+        if (dx > width / 2) {
+            dx = width - dx;
+        }
+        if (dy > height / 2) {
+            dy = height - dy;
+        }
+        if (dz > depth / 2) {
+            dz = depth - dz;
+        }
+        return (float) Math.sqrt(dx * dx + dy * dy + dz * dz);
     }
 
     public void generate() {
@@ -48,6 +72,33 @@ public class Worley3D {
         }
 
         // normalize the data
+        this.normalizeData();
+    }
+
+    public void generateWithWrapping() {
+        // generate the worley noise by calculating the distance from each point to each pixel
+        // and setting the pixel to the closest point
+        // the range for these numbers should be 0 to 1
+        for (int z = 0; z < this.depth; z++) {
+            for (int y = 0; y < this.height; y++) {
+                for (int x = 0; x < this.width; x++) {
+                    float minDistance = distanceWrapped(x, y, z, this.points[0][0], this.points[0][1], this.points[0][2], this.width, this.height, this.depth);
+                    for (int i = 1; i < this.numPoints; i++) {
+                        float d = distanceWrapped(x, y, z, this.points[i][0], this.points[i][1], this.points[i][2], this.width, this.height, this.depth);
+                        if (d < minDistance) {
+                            minDistance = d;
+                        }
+                    }
+                    this.data[x][y][z] = minDistance;
+                }
+            }
+        }
+
+        // normalize the data
+        this.normalizeData();
+    }
+
+    private void normalizeData() {
         float max = 0;
         for (int z = 0; z < this.depth; z++) {
             for (int y = 0; y < this.height; y++) {
@@ -66,7 +117,6 @@ public class Worley3D {
             }
         }
     }
-
     public void invert() {
         for (int z = 0; z < this.depth; z++) {
             for (int y = 0; y < this.height; y++) {
@@ -76,8 +126,6 @@ public class Worley3D {
             }
         }
     }
-
-
 
     public PGM[] getPGMs() {
         // each layer of depth gets its own PGM of Width x Height
