@@ -107,7 +107,7 @@ public class PGM {
     }
 
     // convert to bitmap
-    public boolean saveAsBitmap(String filename) {
+    public boolean saveBMP(String filename) {
         try (FileOutputStream fos = new FileOutputStream(filename)) {
             // write header
             int padding = (4 - (this.width * 3) % 4) % 4;
@@ -147,7 +147,7 @@ public class PGM {
         return true;
     }
 
-    public void writeToPng(String filename){
+    public void savePNG(String filename){
         BufferedImage pngImage = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
 
         // Set pixel values
@@ -167,13 +167,13 @@ public class PGM {
         }
     }
 
-    public static void writePNGs(PGM[] pgms, String folderName){
+    public static void savePNGSequence(PGM[] pgms, String folderName){
         File folder = new File(folderName);
         if (!folder.exists()) {
             folder.mkdir();
         }
         for (int i = 0; i < pgms.length; i++) {
-            pgms[i].writeToPng(folderName + "/image-" + i + ".png");
+            pgms[i].savePNG(folderName + "/image-" + i + ".png");
         }
     }
 }

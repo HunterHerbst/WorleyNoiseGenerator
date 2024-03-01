@@ -23,6 +23,6 @@ public class Application {
         w.generate();
         System.out.println("Saving 3D Worley noise...");
         PGM[] pgms = w.getPGMs();
-        PGM.writePNGs(pgms, "worleyGif");
+        PGM.savePNGSequence(pgms, "worleyGif");
     }
 }
