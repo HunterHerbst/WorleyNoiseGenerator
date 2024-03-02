@@ -8,6 +8,7 @@ public class Worley3D {
     private float[][][] data;
     private int numPoints;
     private int[][] points;
+    private boolean wrap;
 
     public Worley3D(int width, int height, int depth, int numPoints, boolean wrap) {
         this.width = width;
@@ -21,6 +22,8 @@ public class Worley3D {
             this.points[i][1] = (int) (Math.random() * height);
             this.points[i][2] = (int) (Math.random() * depth);
         }
+
+        this.wrap = wrap;
 
         if(wrap)
             this.generateWithWrapping();
@@ -98,6 +101,20 @@ public class Worley3D {
         this.normalizeData();
     }
 
+    public void regenerate() {
+        points = new int[numPoints][3];
+        for (int i = 0; i < numPoints; i++) {
+            this.points[i][0] = (int) (Math.random() * width);
+            this.points[i][1] = (int) (Math.random() * height);
+            this.points[i][2] = (int) (Math.random() * depth);
+        }
+
+        if(wrap)
+            this.generateWithWrapping();
+        else
+            this.generate();
+    }
+
     private void normalizeData() {
         float max = 0;
         for (int z = 0; z < this.depth; z++) {
@@ -125,6 +142,32 @@ public class Worley3D {
                 }
             }
         }
+    }
+
+    public int getWidth() {
+        return this.width;
+    }
+
+    public int getHeight() {
+        return this.height;
+    }
+
+    public int getDepth() {
+        return this.depth;
+    }
+
+    public float[][][] getData() {
+        return this.data;
+    }
+
+    public float[][] getSlice(int z) {
+        float[][] slice = new float[this.width][this.height];
+        for (int y = 0; y < this.height; y++) {
+            for (int x = 0; x < this.width; x++) {
+                slice[x][y] = this.data[x][y][z];
+            }
+        }
+        return slice;
     }
 
     public PGM[] getPGMs() {
