@@ -7,6 +7,7 @@ public class Worley {
     private float[][] data;
     private int numPoints;
     private int[][] points;
+    private boolean wrap;
 
     public Worley(int width, int height, int numPoints, boolean wrap) {
         this.width = width;
@@ -18,6 +19,8 @@ public class Worley {
             this.points[i][0] = (int) (Math.random() * width);
             this.points[i][1] = (int) (Math.random() * height);
         }
+
+        this.wrap = wrap;
 
         if (wrap)
             this.generateWithWrapping();
@@ -97,6 +100,19 @@ public class Worley {
         this.normalizeData();
     }
 
+    public void regenerate() {
+        this.points = new int[numPoints][2];
+        for (int i = 0; i < numPoints; i++) {
+            this.points[i][0] = (int) (Math.random() * width);
+            this.points[i][1] = (int) (Math.random() * height);
+        }
+
+        if (wrap)
+            this.generateWithWrapping();
+        else
+            this.generate();
+    }
+
     private void normalizeData() {
         float max = 0;
         for (int y = 0; y < this.height; y++) {
@@ -120,6 +136,32 @@ public class Worley {
             }
         }
     }
+
+    public void setWrapping(boolean wrap) {
+        this.wrap = wrap;
+    }
+
+    public boolean getWrapping() {
+        return this.wrap;
+    }
+
+    public float[][] getData() {
+        return this.data;
+    }
+
+    public int[][] getPoints() {
+        return this.points;
+    }
+
+    public int getWidth() {
+        return this.width;
+    }
+
+    public int getHeight() {
+        return this.height;
+    }
+
+
 
     public PGM getPGM() {
         PGM pgm = new PGM(this.width, this.height);

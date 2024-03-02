@@ -140,4 +140,18 @@ public class Worley3D {
         }
         return pgms;
     }
+
+    public PNG[] getPNGs() {
+        // each layer of depth gets its own PNG of Width x Height
+        PNG[] pngs = new PNG[this.depth];
+        for (int z = 0; z < this.depth; z++) {
+            pngs[z] = new PNG(this.width, this.height);
+            for (int y = 0; y < this.height; y++) {
+                for (int x = 0; x < this.width; x++) {
+                    pngs[z].setPixel(x, y, new Pixel(this.data[x][y][z], this.data[x][y][z], this.data[x][y][z], 1));
+                }
+            }
+        }
+        return pngs;
+    }
 }
