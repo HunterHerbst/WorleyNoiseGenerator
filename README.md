@@ -29,6 +29,11 @@ Unless otherwise specified, the default behavior for edges is to wrap around, th
 ![Worley Noise Edge Wrapped Big GIF](wrap3dbig.gif)  
 *Worley Noise Edge Wrapped GIF*
 
+Using the native PNG support, the program can easily layer multiple noise maps together across the RGBA color channels. This can be used to create a variety of effects, such as the following:
+
+![Worley Noise RGBA layered PNG](RGBA Worley.png)  
+*Worley Noise RGBA layered PNG*
+
 ## Disclaimer
 
 Like mentioned previously, this implementation is very rudimentary, and is not optimized in any manner. It is meant to be a simple example of how to generate Worley noise. I mainly created this project because I needed a Worley noise generator for a school project, and wanted to get a good foundation first before I attempt to add mutli-threading and other optimizations.
