@@ -14,6 +14,10 @@ public class Pixel {
         this.a = a;
     }
 
+    public Pixel(int rgb) {
+        this((rgb >> 16) & 0xFF, (rgb >> 8) & 0xFF, rgb & 0xFF, (rgb >> 24) & 0xFF);
+    }
+
     public Pixel(float r, float g, float b) {
         this(r, g, b, 1);
     }

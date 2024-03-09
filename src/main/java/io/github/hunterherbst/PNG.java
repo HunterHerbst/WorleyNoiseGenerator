@@ -2,16 +2,21 @@ package io.github.hunterherbst;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.awt.image.IndexColorModel;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Class to create PNG objects and manipulate individual pixels in the image before saving to a file.
  */
 public class PNG {
 
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
     private Pixel[][] pixels;
 
     public PNG(int width, int height) {
@@ -25,6 +30,25 @@ public class PNG {
                 pixels[x][y] = new Pixel(0, 0, 0, 1);
             }
         }
+    }
+
+    public PNG(BufferedImage img) {
+        this.width = img.getWidth();
+        this.height = img.getHeight();
+        pixels = new Pixel[width][height];
+
+        // Initialize all pixels to black
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                pixels[x][y] = new Pixel(img.getRGB(x, y));
+            }
+        }
+    }
+
+    public PNG(Pixel[][] pixels) {
+        this.width = pixels.length;
+        this.height = pixels[0].length;
+        this.pixels = pixels;
     }
 
     public void setPixel(int x, int y, Pixel p) {
@@ -129,18 +153,14 @@ public class PNG {
         return height;
     }
 
-    public void save(String filename) {
+    public void save(String filename) throws IOException {
         BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 img.setRGB(x, y, pixels[x][y].getRGBA());
             }
         }
-        try {
-            ImageIO.write(img, "png", new File(filename));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ImageIO.write(img, "png", new File(filename));
     }
 
     public BufferedImage toBufferedImage() {
